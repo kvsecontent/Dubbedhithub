@@ -43,11 +43,35 @@
             padding: 0 1rem;
         }
         
+        /* Mobile Header */
+        .mobile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            z-index: 5;
+        }
+        
+        .mobile-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Logo styling */
         .logo {
             display: flex;
             align-items: center;
             font-size: 1.8rem;
             font-weight: 700;
+            flex-wrap: nowrap;
+            white-space: nowrap;
         }
         
         .logo i {
@@ -59,6 +83,19 @@
             margin-right: 15px;
             height: 40px;
             width: auto;
+        }
+        
+        .dark-mode-btn {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+            margin-left: 15px;
+            transition: transform 0.3s ease;
+            z-index: 5;
+        }
+        
+        .dark-mode-btn:hover {
+            transform: rotate(30deg);
         }
         
         .search-bar {
@@ -330,6 +367,10 @@
             transition: background 0.3s ease;
         }
         
+        .newsletter-form button:hover {
+            background: #2c2c45;
+        }
+        
         .archive-section {
             background-color: white;
             border-radius: 10px;
@@ -535,23 +576,88 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        @media (max-width: 768px) {
-            .platform-item {
-                width: calc(50% - 1rem);
-            }
-            
-            .search-bar {
-                flex-direction: column;
-            }
-            
-            .search-bar input {
-                border-radius: 30px;
-                margin-bottom: 0.5rem;
-            }
-            
-            .search-bar button {
-                border-radius: 30px;
-            }
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background-color: white;
+            z-index: 1010;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+        
+        body.dark-mode .mobile-nav {
+            background-color: #1e1e1e;
+            color: white;
+        }
+        
+        .mobile-nav.open {
+            left: 0;
+        }
+        
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        body.dark-mode .mobile-nav-header {
+            border-color: #333;
+        }
+        
+        .mobile-nav-close {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .mobile-tabs {
+            list-style-type: none;
+            padding: 1rem 0;
+        }
+        
+        .mobile-tabs li {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        body.dark-mode .mobile-tabs li {
+            border-color: #333;
+        }
+        
+        .mobile-tabs li.active {
+            color: var(--primary-color);
+        }
+        
+        .mobile-nav-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        body.dark-mode .mobile-nav-footer {
+            border-color: #333;
+        }
+        
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+        
+        .mobile-overlay.open {
+            display: block;
         }
         
         .cookie-banner {
@@ -656,6 +762,249 @@
         .movie-watchlist.active {
             color: #FFD700;
         }
+        
+        /* Touch device optimizations */
+        .touch-device .movie-card, 
+        .touch-device .archive-item {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .touch-device .movie-card.touch-active {
+            transform: scale(0.98);
+        }
+        
+        .touch-device .movie-watchlist,
+        .touch-device .cookie-btn,
+        .touch-device .tab-link {
+            min-height: 44px; /* Minimum touch target size */
+        }
+        
+        .touch-device .archive-filter,
+        .touch-device .search-bar input,
+        .touch-device .search-bar button {
+            padding: 0.8rem;
+            min-height: 44px;
+        }
+        
+        /* Add pull-to-refresh visual indicator */
+        @keyframes pull-indicator {
+            0% { transform: translateY(-70px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        .pull-indicator {
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            display: none;
+            color: var(--primary-color);
+            position: relative;
+            top: -50px;
+            margin-bottom: -50px;
+        }
+        
+        .touch-device .pull-indicator.active {
+            display: block;
+            animation: pull-indicator 0.3s forwards;
+        }
+        
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode nav {
+            background-color: #1e1e1e;
+        }
+        
+        body.dark-mode .tabs li {
+            color: #ddd;
+        }
+        
+        body.dark-mode .movie-card,
+        body.dark-mode .about-section,
+        body.dark-mode .platform-item,
+        body.dark-mode .archive-section {
+            background-color: #2d2d2d;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .movie-title,
+        body.dark-mode .archive-item-title,
+        body.dark-mode .platform-name {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .movie-meta,
+        body.dark-mode .movie-desc,
+        body.dark-mode .archive-item-meta,
+        body.dark-mode .archive-item-desc {
+            color: #aaa;
+        }
+        
+        body.dark-mode .archive-filter {
+            background-color: #2d2d2d;
+            border-color: #444;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .archive-item {
+            border-color: #444;
+        }
+        
+        /* Mobile and Tablet Responsiveness */
+        @media (max-width: 1024px) {
+            .movie-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+            
+            .platform-item {
+                width: calc(50% - 1rem);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav .tabs {
+                display: none;
+            }
+            
+            .platform-item {
+                width: 100%;
+            }
+            
+            .movie-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1rem;
+            }
+            
+            .search-bar {
+                margin-top: 1rem;
+                width: 100%;
+            }
+            
+            .footer-section {
+                flex: 0 0 100%;
+                margin-bottom: 1.5rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .archive-filters {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .archive-filter {
+                width: 100%;
+            }
+            
+            .archive-item-meta {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .cookie-content {
+                flex-direction: column;
+            }
+            
+            .cookie-buttons {
+                margin-top: 1rem;
+            }
+            
+            /* Fix for header alignment */
+            .mobile-header {
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.5rem 0;
+            }
+            
+            .logo {
+                order: 2;
+                justify-content: center;
+            }
+            
+            .menu-toggle {
+                order: 1;
+            }
+            
+            .mobile-actions {
+                order: 3;
+            }
+        }
+        
+        .mobile-header .logo span {
+            display: inline-block;
+        }
+        
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .platform-item {
+                width: 100%;
+            }
+            
+            .movie-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+            
+            .movie-card .movie-thumbnail {
+                height: 200px;
+            }
+            
+            .archive-item {
+                flex-direction: column;
+            }
+            
+            .archive-item-image {
+                flex: 0 0 auto;
+                height: 180px;
+                width: 100%;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .movie-title {
+                font-size: 0.9rem;
+            }
+            
+            .movie-meta {
+                font-size: 0.75rem;
+            }
+            
+            .movie-desc {
+                font-size: 0.8rem;
+                -webkit-line-clamp: 2;
+            }
+            
+            .movie-link {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+        
+        /* For extra small devices */
+        @media (max-width: 375px) {
+            .movie-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 0.8rem;
+            }
+            
+            .movie-card .movie-thumbnail {
+                height: 180px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -671,7 +1020,7 @@
                     <span>DubbedHitHub</span>
                 </div>
                 <div class="mobile-actions">
-                    <div class="theme-toggle" id="theme-btn">
+                    <div class="dark-mode-btn" onclick="toggleDarkMode()">
                         <i class="fas fa-moon"></i>
                     </div>
                 </div>
@@ -1102,32 +1451,6 @@
                 </div>
             </div>
             
-            <!-- About Tab Content -->
-            <div id="about" class="tab-content">
-                <h2 class="section-title">About DubbedHitHub</h2>
-                <div class="about-section">
-                    <p>Welcome to DubbedHitHub, your go-to destination for finding legal and authentic dubbed movies available on YouTube and other OTT platforms.</p>
-                    <p style="margin-top: 1rem;">Our mission is to help movie lovers discover high-quality dubbed content from South Indian cinema and beyond, all available through legitimate channels.</p>
-                    <p style="margin-top: 1rem;">We focus primarily on:</p>
-                    <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                        <li>South Indian movies dubbed in Hindi and other languages</li>
-                        <li>Movies available on official YouTube channels</li>
-                        <li>Top-rated content from popular OTT platforms</li>
-                        <li>New releases and trending titles</li>
-                    </ul>
-                    <p style="margin-top: 1rem;">We only promote content that is legally available and respect copyright laws. All the movies featured on our website are from authentic sources that have the rights to distribute them.</p>
-                </div>
-                
-                <div class="newsletter">
-                    <h3>Subscribe to Our Newsletter</h3>
-                    <p>Get the latest updates on new movie additions and platform highlights.</p>
-                    <div class="newsletter-form">
-                        <input type="email" placeholder="Your email address">
-                        <button>Subscribe</button>
-                    </div>
-                </div>
-            </div>
-            
             <!-- Archive Tab Content -->
             <div id="archive" class="tab-content">
                 <h2 class="section-title">Movie Archive</h2>
@@ -1249,246 +1572,138 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- About Tab Content -->
+            <div id="about" class="tab-content">
+                <h2 class="section-title">About DubbedHitHub</h2>
+                <div class="about-section">
+                    <p>Welcome to DubbedHitHub, your go-to destination for finding legal and authentic dubbed movies available on YouTube and other OTT platforms.</p>
+                    <p style="margin-top: 1rem;">Our mission is to help movie lovers discover high-quality dubbed content from South Indian cinema and beyond, all available through legitimate channels.</p>
+                    <p style="margin-top: 1rem;">We focus primarily on:</p>
+                    <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                        <li>South Indian movies dubbed in Hindi and other languages</li>
+                        <li>Movies available on official YouTube channels</li>
+                        <li>Top-rated content from popular OTT platforms</li>
+                        <li>New releases and trending titles</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">We only promote content that is legally available and respect copyright laws. All the movies featured on our website are from authentic sources that have the rights to distribute them.</p>
+                </div>
+                
+                <div class="newsletter">
+                    <h3>Subscribe to Our Newsletter</h3>
+                    <p>Get the latest updates on new movie additions and platform highlights.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button>Subscribe</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>DubbedHitHub</h3>
-                    <p>Your one-stop destination for discovering authentic and legal dubbed movies on YouTube and other platforms.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">YouTube Movies</a></li>
-                        <li><a href="#">South Dubbed</a></li>
-                        <li><a href="#">OTT Platforms</a></li>
-                        <li><a href="#">New Releases</a></li>
-                        <li><a href="#">Archive</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Copyright Notice</a></li>
-                        <li><a href="#">DMCA Policy</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Email: info@dubbedhithub.com</a></li>
-                        <li><a href="#">Submit a Movie</a></li>
-                        <li><a href="#">Report Broken Link</a></li>
-                        <li><a href="#">Advertise with Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 DubbedHitHub. All rights reserved.</p>
-            </div>
-        </div>
-        
-        <!-- Cookie Consent Banner -->
-        <div id="cookie-consent" class="cookie-banner">
-            <div class="cookie-content">
-                <p>This website uses cookies to ensure you get the best experience on our website.</p>
-                <div class="cookie-buttons">
-                    <button id="accept-cookies" class="cookie-btn accept">Accept</button>
-                    <button id="decline-cookies" class="cookie-btn decline">Decline</button>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab functionality
-            const tabLinks = document.querySelectorAll('.tab-link');
-            const tabContents = document.querySelectorAll('.tab-content');
+        // Direct function for dark mode toggle to avoid event binding issues
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const darkModeBtn = document.querySelector('.dark-mode-btn');
             
-            tabLinks.forEach(function(tabLink) {
-                tabLink.addEventListener('click', function() {
-                    // Remove active class from all tabs
-                    tabLinks.forEach(function(link) {
-                        link.classList.remove('active');
-                    });
-                    
-                    // Add active class to current tab
-                    this.classList.add('active');
-                    
-                    // Hide all tab contents
-                    tabContents.forEach(function(content) {
-                        content.classList.remove('active');
-                    });
-                    
-                    // Show current tab content
+            if (document.body.classList.contains('dark-mode')) {
+                try {
+                    localStorage.setItem('theme', 'dark');
+                } catch (e) {}
+                darkModeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                try {
+                    localStorage.setItem('theme', 'light');
+                } catch (e) {}
+                darkModeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for saved theme preference
+            try {
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    document.querySelector('.dark-mode-btn').innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            } catch (e) {}
+            
+            // Tab functionality - extremely simplified
+            document.querySelectorAll('.tab-link').forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    // Get the tab id
                     const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
+                    
+                    // Update desktop tabs
+                    document.querySelectorAll('.tabs .tab-link').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tabs .tab-link').forEach(function(t) {
+                        if (t.getAttribute('data-tab') === tabId) {
+                            t.classList.add('active');
+                        }
+                    });
+                    
+                    // Update mobile tabs
+                    document.querySelectorAll('.mobile-tabs .tab-link').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.mobile-tabs .tab-link').forEach(function(t) {
+                        if (t.getAttribute('data-tab') === tabId) {
+                            t.classList.add('active');
+                        }
+                    });
+                    
+                    // Update tab content
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const content = document.getElementById(tabId);
+                    if (content) {
+                        content.classList.add('active');
+                    }
+                    
+                    // Close mobile nav if open
+                    document.querySelector('.mobile-nav').classList.remove('open');
+                    document.querySelector('.mobile-overlay').classList.remove('open');
                 });
+            });
+            
+            // Mobile Menu Toggle
+            document.querySelector('.menu-toggle').addEventListener('click', function() {
+                document.querySelector('.mobile-nav').classList.add('open');
+                document.querySelector('.mobile-overlay').classList.add('open');
+            });
+            
+            document.querySelector('.mobile-nav-close').addEventListener('click', function() {
+                document.querySelector('.mobile-nav').classList.remove('open');
+                document.querySelector('.mobile-overlay').classList.remove('open');
+            });
+            
+            document.querySelector('.mobile-overlay').addEventListener('click', function() {
+                document.querySelector('.mobile-nav').classList.remove('open');
+                this.classList.remove('open');
             });
             
             // Search functionality
-            const searchBar = document.querySelector('.search-bar input');
-            const searchButton = document.querySelector('.search-bar button');
-            
-            function performSearch() {
-                const searchTerm = searchBar.value.trim().toLowerCase();
-                if (searchTerm === '') {
-                    // If search is empty, show all movies
-                    document.querySelectorAll('.movie-card, .archive-item').forEach(item => {
-                        item.style.display = '';
-                    });
-                    return;
-                }
+            document.querySelector('.search-bar button').addEventListener('click', function() {
+                const searchTerm = document.querySelector('.search-bar input').value.toLowerCase().trim();
+                if (!searchTerm) return;
                 
-                // Search in movie cards (grid view)
+                // Search in all movie cards
                 document.querySelectorAll('.movie-card').forEach(card => {
                     const title = card.querySelector('.movie-title').textContent.toLowerCase();
-                    if (title.includes(searchTerm)) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    card.style.display = title.includes(searchTerm) ? '' : 'none';
                 });
                 
-                // Search in archive items (list view)
+                // Search in archive items
                 document.querySelectorAll('.archive-item').forEach(item => {
                     const title = item.querySelector('.archive-item-title').textContent.toLowerCase();
-                    if (title.includes(searchTerm)) {
-                        item.style.display = '';
-                    } else {
-                        item.style.display = 'none';
-                    }
+                    item.style.display = title.includes(searchTerm) ? '' : 'none';
                 });
-                
-                // If we're not on the search results tab, switch to a tab that might have results
-                const activeTab = document.querySelector('.tab-content.active');
-                if (activeTab) {
-                    // Check if active tab has any visible movies
-                    const visibleMovies = activeTab.querySelectorAll('.movie-card:not([style*="display: none"]), .archive-item:not([style*="display: none"])');
-                    
-                    if (visibleMovies.length === 0) {
-                        // If no visible movies in current tab, try to find a tab with results
-                        for (const tab of tabContents) {
-                            const hasResults = tab.querySelectorAll('.movie-card:not([style*="display: none"]), .archive-item:not([style*="display: none"])').length > 0;
-                            if (hasResults) {
-                                // Switch to this tab
-                                tabContents.forEach(content => content.classList.remove('active'));
-                                tab.classList.add('active');
-                                
-                                // Also update tab link
-                                const tabId = tab.id;
-                                tabLinks.forEach(link => {
-                                    link.classList.remove('active');
-                                    if (link.getAttribute('data-tab') === tabId) {
-                                        link.classList.add('active');
-                                    }
-                                });
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            searchButton.addEventListener('click', performSearch);
-            
-            searchBar.addEventListener('keyup', function(e) {
-                if (e.key === 'Enter') {
-                    performSearch();
-                } else {
-                    // Real-time search as you type (optional)
-                    performSearch();
-                }
             });
-            
-            // Storage helper function that works even in sandboxed environments
-            const storage = {
-                get: function(key) {
-                    try {
-                        return localStorage.getItem(key);
-                    } catch (e) {
-                        console.log('LocalStorage not available');
-                        return null;
-                    }
-                },
-                set: function(key, value) {
-                    try {
-                        localStorage.setItem(key, value);
-                        return true;
-                    } catch (e) {
-                        console.log('LocalStorage not available');
-                        return false;
-                    }
-                }
-            };
-            
-            // Dark Mode Toggle with explicit ID approach
-            const themeToggleBtn = document.getElementById('theme-btn');
-            
-            themeToggleBtn.addEventListener('click', function() {
-                console.log('Theme toggle clicked');
-                document.body.classList.toggle('dark-mode');
-                
-                // Save preference if storage is available
-                if (document.body.classList.contains('dark-mode')) {
-                    storage.set('theme', 'dark');
-                    this.innerHTML = '<i class="fas fa-sun"></i>';
-                } else {
-                    storage.set('theme', 'light');
-                    this.innerHTML = '<i class="fas fa-moon"></i>';
-                }
-            });
-            
-            // Check for saved theme preference
-            if (storage.get('theme') === 'dark') {
-                document.body.classList.add('dark-mode');
-                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-            }
-            
-            // Cookie Consent Banner
-            const cookieBanner = document.getElementById('cookie-consent');
-            const acceptBtn = document.getElementById('accept-cookies');
-            const declineBtn = document.getElementById('decline-cookies');
-            
-            // Check if user has already made a choice
-            if (storage.get('cookieConsent') === null) {
-                cookieBanner.style.display = 'block';
-            }
-            
-            acceptBtn.addEventListener('click', function() {
-                storage.set('cookieConsent', 'accepted');
-                cookieBanner.style.display = 'none';
-            });
-            
-            declineBtn.addEventListener('click', function() {
-                storage.set('cookieConsent', 'declined');
-                cookieBanner.style.display = 'none';
-            });
-            
-            // Add Back to Top button
+
+            // Back to Top button
             const backToTopBtn = document.createElement('div');
             backToTopBtn.className = 'back-to-top';
             backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
             document.body.appendChild(backToTopBtn);
             
-            // Show/hide back to top button
             window.addEventListener('scroll', function() {
                 if (window.pageYOffset > 300) {
                     backToTopBtn.classList.add('visible');
@@ -1497,7 +1712,6 @@
                 }
             });
             
-            // Scroll to top when button is clicked
             backToTopBtn.addEventListener('click', function() {
                 window.scrollTo({
                     top: 0,
@@ -1506,9 +1720,7 @@
             });
             
             // Add Watchlist functionality
-            const movieThumbnails = document.querySelectorAll('.movie-thumbnail');
-            
-            movieThumbnails.forEach(thumbnail => {
+            document.querySelectorAll('.movie-thumbnail').forEach(thumbnail => {
                 const watchlistBtn = document.createElement('div');
                 watchlistBtn.className = 'movie-watchlist';
                 watchlistBtn.innerHTML = '<i class="far fa-bookmark"></i>';
@@ -1518,95 +1730,12 @@
                     e.stopPropagation();
                     this.classList.toggle('active');
                     
-                    const movieCard = this.closest('.movie-card');
-                    if (!movieCard) return;
-                    
-                    const movieTitle = movieCard.querySelector('.movie-title').textContent;
-                    
-                    // Get existing watchlist from storage
-                    let watchlist = [];
-                    try {
-                        watchlist = JSON.parse(storage.get('watchlist') || '[]');
-                    } catch (e) {
-                        watchlist = [];
-                    }
-                    
                     if (this.classList.contains('active')) {
-                        // Add to watchlist
                         this.innerHTML = '<i class="fas fa-bookmark"></i>';
-                        if (!watchlist.includes(movieTitle)) {
-                            watchlist.push(movieTitle);
-                        }
                     } else {
-                        // Remove from watchlist
                         this.innerHTML = '<i class="far fa-bookmark"></i>';
-                        watchlist = watchlist.filter(title => title !== movieTitle);
                     }
-                    
-                    storage.set('watchlist', JSON.stringify(watchlist));
                 });
-            });
-            
-            // Mobile navigation functionality
-            const menuToggle = document.querySelector('.menu-toggle');
-            const mobileNav = document.querySelector('.mobile-nav');
-            const mobileOverlay = document.querySelector('.mobile-overlay');
-            const mobileNavClose = document.querySelector('.mobile-nav-close');
-            const mobileTabs = document.querySelectorAll('.mobile-tabs .tab-link');
-            
-            menuToggle.addEventListener('click', function() {
-                mobileNav.classList.add('open');
-                mobileOverlay.classList.add('open');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            });
-            
-            function closeMobileNav() {
-                mobileNav.classList.remove('open');
-                mobileOverlay.classList.remove('open');
-                document.body.style.overflow = ''; // Re-enable scrolling
-            }
-            
-            mobileNavClose.addEventListener('click', closeMobileNav);
-            mobileOverlay.addEventListener('click', closeMobileNav);
-            
-            mobileTabs.forEach(function(tabLink) {
-                tabLink.addEventListener('click', function() {
-                    // Get the tab id
-                    const tabId = this.getAttribute('data-tab');
-                    
-                    // Update main tabs
-                    tabLinks.forEach(function(link) {
-                        link.classList.remove('active');
-                        if (link.getAttribute('data-tab') === tabId) {
-                            link.classList.add('active');
-                        }
-                    });
-                    
-                    // Update mobile tabs
-                    mobileTabs.forEach(function(link) {
-                        link.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                    
-                    // Hide all tab contents
-                    tabContents.forEach(function(content) {
-                        content.classList.remove('active');
-                    });
-                    
-                    // Show current tab content
-                    document.getElementById(tabId).classList.add('active');
-                    
-                    // Close mobile nav
-                    closeMobileNav();
-                });
-            });
-            
-            // Handle orientation change
-            window.addEventListener('orientationchange', function() {
-                // Reset layouts or adjust as needed
-                setTimeout(function() {
-                    window.scrollTo(0, 1);
-                }, 200);
             });
         });
     </script>
