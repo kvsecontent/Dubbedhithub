@@ -80,8 +80,8 @@
         }
         
         .site-logo {
-            margin-right: 15px;
-            height: 40px;
+            margin-right: 25px;
+            height: 60px;
             width: auto;
         }
         
@@ -220,17 +220,35 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
+        /* Improved movie thumbnail handling for Imgur images */
         .movie-thumbnail {
             position: relative;
             height: 250px;
             overflow: hidden;
+            background-color: #f0f0f0; /* Fallback background while image loads */
         }
         
         .movie-thumbnail img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+            opacity: 0; /* Start with 0 opacity */
+        }
+        
+        .movie-thumbnail img.loaded {
+            opacity: 1; /* Fade in when loaded */
+        }
+        
+        /* Optional: Add a subtle loading animation */
+        @keyframes pulse {
+            0% { background-color: #f0f0f0; }
+            50% { background-color: #e0e0e0; }
+            100% { background-color: #f0f0f0; }
+        }
+        
+        .movie-thumbnail.loading {
+            animation: pulse 1.5s infinite;
         }
         
         .movie-card:hover .movie-thumbnail img {
@@ -1015,7 +1033,7 @@
                     <i class="fas fa-bars"></i>
                 </div>
                 <div class="logo">
-                    <img src="https://i.imgur.com/YourImgurID.png" alt="Website Logo" class="site-logo">
+                    <img src="https://i.imgur.com/OHMNzUv.png" alt="Website Logo" class="site-logo">
                     <i class="fas fa-film"></i>
                     <span>DubbedHitHub</span>
                 </div>
@@ -1054,7 +1072,7 @@
                 <i class="fas fa-times"></i>
             </div>
             <div class="logo">
-                <img src="https://i.imgur.com/YourImgurID.png" alt="Website Logo" class="site-logo">
+                <img src="https://i.imgur.com/OHMNzUv.png" alt="Website Logo" class="site-logo">
                 <span>DubbedHitHub</span>
             </div>
         </div>
@@ -1087,9 +1105,12 @@
                 <div class="movie-grid">
                     <!-- Movie Card 1 -->
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <!-- Using Imgur image for Bahubali -->
+                            <img src="https://i.imgur.com/twE0EVG.jpeg" alt="Bahubali: The Beginning" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Bahubali: The Beginning</h3>
@@ -1104,9 +1125,12 @@
                     
                     <!-- Movie Card 2 -->
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <!-- Using Imgur image for RRR -->
+                            <img src="https://i.imgur.com/VJsMQkM.jpg" alt="RRR" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">Netflix</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">RRR</h3>
@@ -1121,9 +1145,12 @@
                     
                     <!-- Movie Card 3 -->
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <!-- Using Imgur image for KGF -->
+                            <img src="https://i.imgur.com/AefqiLA.jpg" alt="KGF: Chapter 1" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">KGF: Chapter 1</h3>
@@ -1138,9 +1165,12 @@
                     
                     <!-- Movie Card 4 -->
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <!-- Using Imgur image for Pushpa -->
+                            <img src="https://i.imgur.com/mKaHNHT.jpg" alt="Pushpa: The Rise" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">Prime</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Pushpa: The Rise</h3>
@@ -1160,9 +1190,12 @@
                 <div class="movie-grid">
                     <!-- More movie cards here -->
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <!-- Using Imgur image for Kantara -->
+                            <img src="https://i.imgur.com/j3YZmQp.jpg" alt="Kantara" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Kantara</h3>
@@ -1176,9 +1209,12 @@
                     </div>
                     
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <!-- Using Imgur image for Drishyam 2 -->
+                            <img src="https://i.imgur.com/DFT57JM.jpg" alt="Drishyam 2" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">Hotstar</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Drishyam 2</h3>
@@ -1199,9 +1235,11 @@
                 <div class="movie-grid">
                     <!-- YouTube movie cards here -->
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/XgEu4s2.jpg" alt="Don No. 1" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Don No. 1</h3>
@@ -1215,9 +1253,11 @@
                     </div>
                     
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/sQ8BPWM.jpg" alt="Singham" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Singham</h3>
@@ -1231,9 +1271,11 @@
                     </div>
                     
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/B2DnUvB.jpg" alt="Baahubali 2: The Conclusion" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Baahubali 2: The Conclusion</h3>
@@ -1254,9 +1296,11 @@
                 <div class="movie-grid">
                     <!-- South dubbed movie cards here -->
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/L2YDrJm.jpg" alt="Rebel" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Rebel</h3>
@@ -1270,9 +1314,11 @@
                     </div>
                     
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/Pf3YBzH.jpg" alt="Mersal" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Mersal</h3>
@@ -1286,9 +1332,11 @@
                     </div>
                     
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/Q4VXLE5.jpg" alt="Sarrainodu" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Sarrainodu</h3>
@@ -1309,27 +1357,33 @@
                 
                 <div class="platform-list">
                     <div class="platform-item">
-                        <img src="/api/placeholder/100/100" alt="Netflix">
+                        <img src="https://i.imgur.com/fPI9Brd.png" alt="Netflix" 
+                             onload="this.classList.add('loaded')">
                         <span class="platform-name">Netflix</span>
                     </div>
                     <div class="platform-item">
-                        <img src="/api/placeholder/100/100" alt="Prime Video">
+                        <img src="https://i.imgur.com/K92T4LS.png" alt="Prime Video" 
+                             onload="this.classList.add('loaded')">
                         <span class="platform-name">Prime Video</span>
                     </div>
                     <div class="platform-item">
-                        <img src="/api/placeholder/100/100" alt="Disney+ Hotstar">
+                        <img src="https://i.imgur.com/MpURRZU.png" alt="Disney+ Hotstar" 
+                             onload="this.classList.add('loaded')">
                         <span class="platform-name">Disney+ Hotstar</span>
                     </div>
                     <div class="platform-item">
-                        <img src="/api/placeholder/100/100" alt="ZEE5">
+                        <img src="https://i.imgur.com/3TpLRuF.png" alt="ZEE5" 
+                             onload="this.classList.add('loaded')">
                         <span class="platform-name">ZEE5</span>
                     </div>
                     <div class="platform-item">
-                        <img src="/api/placeholder/100/100" alt="SonyLIV">
+                        <img src="https://i.imgur.com/hQzrNHP.png" alt="SonyLIV" 
+                             onload="this.classList.add('loaded')">
                         <span class="platform-name">SonyLIV</span>
                     </div>
                     <div class="platform-item">
-                        <img src="/api/placeholder/100/100" alt="YouTube Premium">
+                        <img src="https://i.imgur.com/W0k1Lte.png" alt="YouTube Premium" 
+                             onload="this.classList.add('loaded')">
                         <span class="platform-name">YouTube Premium</span>
                     </div>
                 </div>
@@ -1337,9 +1391,11 @@
                 <h3 style="margin-top: 2rem;">Netflix Highlights</h3>
                 <div class="movie-grid">
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/V2BtAJw.jpg" alt="Sacred Games" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">Netflix</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Sacred Games</h3>
@@ -1356,9 +1412,11 @@
                 <h3 style="margin-top: 2rem;">Prime Video Highlights</h3>
                 <div class="movie-grid">
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/sFBIq9c.jpg" alt="The Family Man" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">Prime</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">The Family Man</h3>
@@ -1379,9 +1437,11 @@
                 <div class="movie-grid">
                     <!-- New releases movie cards here -->
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/9YHAEw3.jpg" alt="Varisu" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">Hotstar</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Varisu</h3>
@@ -1395,9 +1455,11 @@
                     </div>
                     
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/H9Lqi6f.jpg" alt="Ponniyin Selvan" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">Prime</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Ponniyin Selvan</h3>
@@ -1418,9 +1480,11 @@
                 <div class="movie-grid">
                     <!-- Popular movie cards here -->
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/9bHZyPS.jpg" alt="Robot" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Robot</h3>
@@ -1434,9 +1498,11 @@
                     </div>
                     
                     <div class="movie-card">
-                        <div class="movie-thumbnail">
-                            <img src="/api/placeholder/400/320" alt="Movie Thumbnail">
+                        <div class="movie-thumbnail loading">
+                            <img src="https://i.imgur.com/vhM2OL3.jpg" alt="Singham Returns" 
+                                 onload="this.classList.add('loaded'); this.parentNode.classList.remove('loading')">
                             <div class="movie-platform">YouTube</div>
+                            <div class="movie-watchlist"><i class="far fa-bookmark"></i></div>
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Singham Returns</h3>
@@ -1483,7 +1549,8 @@
                     <div class="archive-list">
                         <div class="archive-item">
                             <div class="archive-item-image">
-                                <img src="/api/placeholder/120/80" alt="Movie Thumbnail">
+                                <img src="https://i.imgur.com/twE0EVG.jpeg" alt="Bahubali: The Beginning"
+                                     onload="this.classList.add('loaded')">
                             </div>
                             <div class="archive-item-content">
                                 <h3 class="archive-item-title">Bahubali: The Beginning</h3>
@@ -1499,7 +1566,8 @@
                         
                         <div class="archive-item">
                             <div class="archive-item-image">
-                                <img src="/api/placeholder/120/80" alt="Movie Thumbnail">
+                                <img src="https://i.imgur.com/VJsMQkM.jpg" alt="RRR"
+                                     onload="this.classList.add('loaded')">
                             </div>
                             <div class="archive-item-content">
                                 <h3 class="archive-item-title">RRR</h3>
@@ -1515,7 +1583,8 @@
                         
                         <div class="archive-item">
                             <div class="archive-item-image">
-                                <img src="/api/placeholder/120/80" alt="Movie Thumbnail">
+                                <img src="https://i.imgur.com/AefqiLA.jpg" alt="KGF: Chapter 1"
+                                     onload="this.classList.add('loaded')">
                             </div>
                             <div class="archive-item-content">
                                 <h3 class="archive-item-title">KGF: Chapter 1</h3>
@@ -1531,7 +1600,8 @@
                         
                         <div class="archive-item">
                             <div class="archive-item-image">
-                                <img src="/api/placeholder/120/80" alt="Movie Thumbnail">
+                                <img src="https://i.imgur.com/mKaHNHT.jpg" alt="Pushpa: The Rise"
+                                     onload="this.classList.add('loaded')">
                             </div>
                             <div class="archive-item-content">
                                 <h3 class="archive-item-title">Pushpa: The Rise</h3>
@@ -1547,7 +1617,8 @@
                         
                         <div class="archive-item">
                             <div class="archive-item-image">
-                                <img src="/api/placeholder/120/80" alt="Movie Thumbnail">
+                                <img src="https://i.imgur.com/j3YZmQp.jpg" alt="Kantara"
+                                     onload="this.classList.add('loaded')">
                             </div>
                             <div class="archive-item-content">
                                 <h3 class="archive-item-title">Kantara</h3>
@@ -1601,6 +1672,44 @@
         </div>
     </main>
     
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#youtube">YouTube Movies</a></li>
+                        <li><a href="#south-dubbed">South Dubbed</a></li>
+                        <li><a href="#new-releases">New Releases</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Action Movies</a></li>
+                        <li><a href="#">Drama</a></li>
+                        <li><a href="#">Fantasy</a></li>
+                        <li><a href="#">Thriller</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <p>Stay updated with the latest dubbed movies and news.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 DubbedHitHub - All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+    
     <script>
         // Direct function for dark mode toggle to avoid event binding issues
         function toggleDarkMode() {
@@ -1628,6 +1737,9 @@
                     document.querySelector('.dark-mode-btn').innerHTML = '<i class="fas fa-sun"></i>';
                 }
             } catch (e) {}
+            
+            // Initialize image loading
+            initializeImageLoading();
             
             // Tab functionality - extremely simplified
             document.querySelectorAll('.tab-link').forEach(function(tab) {
@@ -1661,6 +1773,9 @@
                     // Close mobile nav if open
                     document.querySelector('.mobile-nav').classList.remove('open');
                     document.querySelector('.mobile-overlay').classList.remove('open');
+                    
+                    // Reinitialize image loading for new tab content
+                    setTimeout(initializeImageLoading, 50);
                 });
             });
             
@@ -1697,6 +1812,13 @@
                     item.style.display = title.includes(searchTerm) ? '' : 'none';
                 });
             });
+            
+            // Enter key for search
+            document.querySelector('.search-bar input').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    document.querySelector('.search-bar button').click();
+                }
+            });
 
             // Back to Top button
             const backToTopBtn = document.createElement('div');
@@ -1721,23 +1843,75 @@
             
             // Add Watchlist functionality
             document.querySelectorAll('.movie-thumbnail').forEach(thumbnail => {
-                const watchlistBtn = document.createElement('div');
-                watchlistBtn.className = 'movie-watchlist';
-                watchlistBtn.innerHTML = '<i class="far fa-bookmark"></i>';
-                thumbnail.appendChild(watchlistBtn);
-                
-                watchlistBtn.addEventListener('click', function(e) {
+                if (!thumbnail.querySelector('.movie-watchlist')) {
+                    const watchlistBtn = document.createElement('div');
+                    watchlistBtn.className = 'movie-watchlist';
+                    watchlistBtn.innerHTML = '<i class="far fa-bookmark"></i>';
+                    thumbnail.appendChild(watchlistBtn);
+                }
+            });
+            
+            // Delegate event for watchlist buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.movie-watchlist')) {
+                    const watchlistBtn = e.target.closest('.movie-watchlist');
                     e.stopPropagation();
-                    this.classList.toggle('active');
+                    watchlistBtn.classList.toggle('active');
                     
-                    if (this.classList.contains('active')) {
-                        this.innerHTML = '<i class="fas fa-bookmark"></i>';
+                    if (watchlistBtn.classList.contains('active')) {
+                        watchlistBtn.innerHTML = '<i class="fas fa-bookmark"></i>';
                     } else {
-                        this.innerHTML = '<i class="far fa-bookmark"></i>';
+                        watchlistBtn.innerHTML = '<i class="far fa-bookmark"></i>';
                     }
-                });
+                }
             });
         });
+        
+        // Function to initialize image loading states
+        function initializeImageLoading() {
+            document.querySelectorAll('.movie-thumbnail').forEach(thumbnail => {
+                // Add loading class if not already there
+                if (!thumbnail.classList.contains('loading') && !thumbnail.classList.contains('loaded')) {
+                    thumbnail.classList.add('loading');
+                }
+                
+                const img = thumbnail.querySelector('img');
+                if (img) {
+                    // If image is already loaded (from cache)
+                    if (img.complete) {
+                        img.classList.add('loaded');
+                        thumbnail.classList.remove('loading');
+                    } else {
+                        // Otherwise wait for load event
+                        img.onload = function() {
+                            img.classList.add('loaded');
+                            thumbnail.classList.remove('loading');
+                        };
+                        
+                        // Handle error case
+                        img.onerror = function() {
+                            thumbnail.classList.remove('loading');
+                            thumbnail.classList.add('error');
+                            // Optional: replace with a default image
+                            img.src = 'https://i.imgur.com/OHMNzUv.png';
+                        };
+                    }
+                }
+            });
+            
+            // Also handle archive images
+            document.querySelectorAll('.archive-item-image img').forEach(img => {
+                if (!img.classList.contains('loaded')) {
+                    if (img.complete) {
+                        img.classList.add('loaded');
+                    } else {
+                        img.onload = function() {
+                            img.classList.add('loaded');
+                        };
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>
